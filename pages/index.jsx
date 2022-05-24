@@ -1,30 +1,74 @@
 import Head from "next/head";
-import Script from "next/script";
+import Link from 'next/link';
+import Container from "../components/container.jsx";
 
-export default function Home() {
+export default function Index() {
   return (
     <div>
       <Head>
-        <title>Inventario</title>
-        <link
-          href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
-          rel="stylesheet"
-          integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
-          crossorigin="anonymous"
-        />
-        <link
-          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css"
-          rel="stylesheet"
-        ></link>
+        <title>Inicio</title>
       </Head>
 
-      <div className="container"><h1>Inventario</h1></div>
+      <Container>
+        <div class="container-fluid">
+          <div class="row">
 
-      <Script
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
-        strategy="lazyOnload"
-      />
+            <main class="col-12 p-2">
+              <div class="alert alert-primary">
+                <center>
+                  <h2>Inventario</h2>
+                </center>
+              </div>
+
+                <div class="container">
+                  <div class="row pb-2">
+                    <div class="col-6">
+                      <div class="d-grid gap-2">
+                        <Link href="/categorias">
+                          <a class="btn btn-primary">Ver Categorías <i class="bi-clipboard icon"></i></a>
+                        </Link>
+                      </div>
+                    </div>
+                    <div class="col-6">
+                      <div class="d-grid gap-2">
+                        <Link href="/productos">
+                          <a class="btn btn-primary">Ver Productos <i class="bi-clipboard icon"></i> </a>
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-6">
+                      <div class="d-grid gap-2">
+                        <Link href="/categorias/registrar-categoria">
+                          <a class="btn btn-primary">Crear Categoría <i class="bi-plus-lg icon"></i></a>
+                        </Link>
+                      </div>
+                    </div>
+                    <div class="col-6">
+                      <div class="d-grid gap-2">
+                        <Link href="/producto/registrar-producto">
+                          <a class="btn btn-primary">Crear Producto <i class="bi-plus-lg icon"></i> </a>
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              <div class="container pb-5"> <br/><br/>  
+                <div class="row d-flex justify-content-center">
+                  <div class="d-flex justify-content-center">
+                    <i class="bi-info-circle" style={{ fontSize: '60px' }}></i>
+                  </div>
+                  <center><h2>¡Actualmente no hay registros disponibles!</h2>
+                  <p>Esto se debe a que no se ha procesado alguna entrada o salida de productos en el sistema.</p></center>
+                </div>
+              </div>
+            </main>
+
+          </div>
+        </div>
+      </Container>
     </div>
   );
 }

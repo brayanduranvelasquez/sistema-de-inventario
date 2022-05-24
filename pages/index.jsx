@@ -47,7 +47,7 @@ export default function Index() {
                     </div>
                     <div class="col-6">
                       <div class="d-grid gap-2">
-                        <Link href="/producto/registrar-producto">
+                        <Link href="/productos/registrar-producto">
                           <a class="btn btn-primary">Crear Producto <i class="bi-plus-lg icon"></i> </a>
                         </Link>
                       </div>

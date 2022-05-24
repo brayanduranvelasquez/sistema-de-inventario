@@ -41,14 +41,14 @@ export default function Index() {
                     <div class="col-6">
                       <div class="d-grid gap-2">
                         <Link href="/categorias/registrar-categoria">
-                          <a class="btn btn-primary">Crear Categoría <i class="bi-plus-lg icon"></i></a>
+                          <a class="btn btn-primary">Registrar Categoría <i class="bi-plus-lg icon"></i></a>
                         </Link>
                       </div>
                     </div>
                     <div class="col-6">
                       <div class="d-grid gap-2">
                         <Link href="/productos/registrar-producto">
-                          <a class="btn btn-primary">Crear Producto <i class="bi-plus-lg icon"></i> </a>
+                          <a class="btn btn-primary">Registrar Producto <i class="bi-plus-lg icon"></i> </a>
                         </Link>
                       </div>
                     </div>

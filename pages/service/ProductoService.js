@@ -14,4 +14,8 @@ export class ProductoService {
   deleteProducto(id){
     return axios.post(this.baseUrl + "delete/" + id, null). then(res => res.data)
 	}
+
+  getProducto(id){
+    return axios.post(this.baseUrl + "find/" + id, null). then(res => res.data)
+	}
 }

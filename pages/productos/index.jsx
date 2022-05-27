@@ -72,7 +72,7 @@ export default function Home() {
                                     Editar
                                   </a>
                                 </Link>
-                                <Link href={"/productos/eliminar-producto/" + dato.id}>
+                              <Link href={"/productos/eliminar-producto/" + dato.id + "?producto=" + dato.nombre}>
                                   <a class="btn btn-sm btn-outline-danger">
                                     Eliminar
                                   </a>

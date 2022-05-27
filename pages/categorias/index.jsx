@@ -31,7 +31,7 @@ export default function Home() {
               </div> 
             </div>
             
-            {categoria.length > 0 && (
+            {categoria.length > 0 &&  (
               <div class="col-12">
                   <div class="pb-2">
                     <Link href="/categorias/registrar-categoria">
@@ -96,7 +96,7 @@ export default function Home() {
                     </Link>
                 </center>
               </div>
-              )}
+            )}
 
             </div>
         </main>

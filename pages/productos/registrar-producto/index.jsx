@@ -1,12 +1,34 @@
 import Head from "next/head";
 import Link from 'next/link';
 import { useRouter } from "next/router";
-import { Fragment } from "react";
 import { ProductoService } from "../../service/ProductoService.js";
+import { CategoriaService } from "../../service/CategoriaService.js";
 import Container from "../../../components/container.jsx";
 
 export default function Home() {
   const router = useRouter();
+
+  let categoriaService = new CategoriaService();
+  categoriaService.getTodasCategorias().then((res) => llenarCategorias(res));
+
+  const llenarCategorias = (categorias) => {
+    let categoriaSelect = document.getElementById('categoriaSelect');
+    let cuantasCategorias = categorias.length; // Saber la longitud de lo obtenido desde la promesa y mostrar datos de cuantas categorias existan
+
+    if (cuantasCategorias < 1){
+      categoriaSelect.innerHTML += `
+        <option disabled>No existen categorias</option>
+      `;
+    }
+
+    else {
+      categorias.map((dato, index) => {
+        categoriaSelect.innerHTML += `
+          <option value=${dato.id}>${dato.nombre}</option>
+        `;
+      })
+    }
+  }
 
   const enviarDatos = (event) => {
     event.preventDefault() // Para que no se envie el formulario
@@ -26,7 +48,6 @@ export default function Home() {
   }
 
   return (
-    <Fragment>
       <div>
         <Head>
           <title>Registrar Producto</title>
@@ -57,11 +78,8 @@ export default function Home() {
                       </div><br/>
 
                       <div class="col-md form-floating">
-                        <select class="form-select" name="id_categoria" required>
-                            <option selected value="1">1</option>
-                            <option selected value="2">2</option>
-                            <option selected value="3">3</option>
-                          </select>
+                        <select class="form-select" name="id_categoria" id="categoriaSelect" required>
+                        </select>
                         <label for="floatingInput">Categorias</label>
                       </div><br/>
 
@@ -75,7 +93,7 @@ export default function Home() {
 
               <div class="col-12 pb-3"><br/><br/><br/>
                 <Link href="/productos">
-                  <a class="btn btn-primary px-5">Regresar</a>
+                  <a class="btn btn-outline-primary px-5">Regresar</a>
                 </Link>
               </div>
 
@@ -83,6 +101,5 @@ export default function Home() {
           </div>
         </Container>
       </div>
-    </Fragment>
   );
 }

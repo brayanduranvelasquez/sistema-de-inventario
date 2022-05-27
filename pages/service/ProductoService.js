@@ -16,6 +16,6 @@ export class ProductoService {
 	}
 
   getProducto(id){
-    return axios.post(this.baseUrl + "find/" + id, null). then(res => res.data)
+    return axios.get(this.baseUrl + "find/" + id, null). then(res => res.data)
 	}
 }

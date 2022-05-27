@@ -14,6 +14,7 @@ export default function Home() {
   const llenarCategorias = (categorias) => {
     let categoriaSelect = document.getElementById('categoriaSelect');
     let cuantasCategorias = categorias.length; // Saber la longitud de lo obtenido desde la promesa y mostrar datos de cuantas categorias existan
+    categoriaSelect.innerHTML = ``; // Para que siempre se formateen los datos de las categorias
 
     if (cuantasCategorias < 1){
       categoriaSelect.innerHTML += `

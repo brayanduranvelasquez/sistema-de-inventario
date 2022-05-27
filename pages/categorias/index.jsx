@@ -57,7 +57,7 @@ export default function Home() {
                             <td>{dato.id}</td>
                             <td>{dato.nombre}</td>
                             <td>
-                              {dato.status ? "Habilitado" : "Deshabilitado"}
+                              {dato.status ? "Inactivo" : "Activo"}
                             </td>
                             <td>
                               <div class="d-flex gap-2">
@@ -87,7 +87,7 @@ export default function Home() {
                   <i class="bi-info-circle" style={{ fontSize: "60px" }}></i>
                  </div>
                 <center>
-                  <h2>¡Actualmente no hay categorias registrados!</h2>
+                  <h2>¡Actualmente no hay categorias registradas!</h2>
                   <p>Proceda a registrar una nueva categoria.</p>
                     <Link href="/categorias/registrar-categoria/">
                       <a class="btn btn-primary">

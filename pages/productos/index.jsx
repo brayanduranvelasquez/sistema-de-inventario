@@ -63,7 +63,7 @@ export default function Home() {
                             <td>{dato.precio}</td>
                             <td>{dato.id_categoria}</td>
                             <td>
-                              {dato.status ? "Habilitado" : "Deshabilitado"}
+                              {dato.status ? "Inactivo" : "Activo"}
                             </td>
                             <td>
                               <div class="d-flex gap-2">

@@ -66,7 +66,7 @@ export default function Home() {
               </main>
 
               <div class="col-12 pb-3"><br/><br/><br/>
-                <Link href="/productos">
+                <Link href="/categorias">
                   <a class="btn btn-outline-primary px-5">Regresar</a>
                 </Link>
               </div>

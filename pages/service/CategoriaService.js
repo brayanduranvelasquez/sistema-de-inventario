@@ -14,4 +14,8 @@ export class CategoriaService {
   deleteCategoria(id){
     return axios.post(this.baseUrl + "delete/" + id, null). then(res => res.data)
 	}
+
+  getCategoria(id){
+    return axios.get(this.baseUrl + "find/" + id, null). then(res => res.data)
+	}
 }

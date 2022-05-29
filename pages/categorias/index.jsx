@@ -9,9 +9,26 @@ export default function Home() {
 
   useEffect(() => {
     let categoriaService = new CategoriaService();
-    categoriaService.getTodasCategorias().then((res) => setCategorias(res));
-    // Guarda los valores obtenidos en la constante producto, accediendo al objeto ProductoService
-  });
+    categoriaService.getTodasCategorias().then((res) => respuestaServidor(res)).catch(() => errorServidor());
+
+    const respuestaServidor = (datos) => {
+      let divRegistros = document.getElementById("divRegistros");
+      let divSinRegistros = document.getElementById("divSinRegistros");
+
+      if (datos.length == 0) {
+        divSinRegistros.style.cssText = "display: block";
+      } else {
+        setCategorias(datos);
+        divRegistros.style.cssText = "display: block";
+      }
+    };
+
+    const errorServidor = () => {
+      let divBaseDeDatos = document.getElementById("divBaseDeDatos");
+      divBaseDeDatos.style.cssText = "display: block";
+    };
+
+  }, []);
 
   return (
     <div>
@@ -31,8 +48,7 @@ export default function Home() {
               </div> 
             </div>
             
-            {categoria.length > 0 &&  (
-              <div class="col-12">
+              <div class="col-12 py-5" style={{ display: "none" }} id="divRegistros">
                   <div class="pb-2">
                     <Link href="/categorias/registrar-categoria">
                       <a class="btn btn-primary btn-fluid">
@@ -79,10 +95,8 @@ export default function Home() {
                     </tbody>
                   </table>
               </div>
-            )}
 
-            {categoria.length == 0 && (
-              <div class="col-12 pb-3">
+              <div class="col-12 py-5" style={{ display: "none" }} id="divSinRegistros">
                 <div class="d-flex justify-content-center">
                   <i class="bi-info-circle" style={{ fontSize: "60px" }}></i>
                  </div>
@@ -96,7 +110,18 @@ export default function Home() {
                     </Link>
                 </center>
               </div>
-            )}
+
+              <div class="col-12 py-5" style={{ display: "none" }} id="divBaseDeDatos">
+              <div class="d-flex justify-content-center">
+                <i class="bi-server" style={{ fontSize: "60px" }}></i>
+              </div>
+              <center>
+                <h2>¡Error con la llamada al servidor!</h2>
+                <p>
+                  Ha ocurrido un problema de conexion con la base de datos...
+                </p>
+              </center>
+              </div>
 
             </div>
         </main>

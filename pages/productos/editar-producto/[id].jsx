@@ -1,38 +1,74 @@
 import Head from "next/head";
 import Link from 'next/link';
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import { ProductoService } from "../../service/ProductoService.js";
+import { CategoriaService } from "../../service/CategoriaService.js";
 import Container from "../../../components/container.jsx";
 
 export default function Home() {
   const router = useRouter();
   let id = router.query.id;
 
-  // Luego que se cumple la promesa, llena el formulario para editar
-  let productoService = new ProductoService();
-  productoService.getProducto(id).then((res) => llenarFormulario(res));
- 
-  const llenarFormulario = (datosProducto) => {
-    let formulario = document.getElementById('formulario');
+  const [producto, setProducto] = useState([]); // Para obtener el id_categoria de producto
+  
+  useEffect(() => {
 
-    formulario.nombre.value = datosProducto.nombre
-    formulario.precio.value = datosProducto.precio
-    formulario.id_categoria.value = datosProducto.id_categoria
+    let productoService = new ProductoService();
+    productoService.getProducto(id).then((res) => llenarFormulario(res));
 
+    const llenarFormulario = (datosProducto) => {
+      setProducto(datosProducto);
+      let formulario = document.getElementById('formulario');
+      
+      formulario.nombre.value = datosProducto.nombre
+      formulario.precio.value = datosProducto.precio
+    }
+    
+  }, [])
+
+  let categoriaService = new CategoriaService();
+  categoriaService.getTodasCategorias().then((res) => llenarCategorias(res))
+
+  const llenarCategorias = (categorias) => {
+    let categoriaSelect = document.getElementById('categoriaSelect');
+    let cuantasCategorias = categorias.length; // Saber la longitud de lo obtenido desde la promesa y mostrar datos de cuantas categorias existan
+    categoriaSelect.innerHTML = ``; // Para que siempre se formateen los datos de las categorias
+
+    if (cuantasCategorias < 1){
+      categoriaSelect.innerHTML += `
+        <option disabled>No existen categorias</option>
+      `;
+    } else {
+
+      categorias.map((dato, index) => {
+        if(dato.id == producto.id_categoria){
+          categoriaSelect.innerHTML += `
+            <option key=${index} value=${dato.id} selected>${dato.nombre}</option>
+          `;
+        } else {
+          categoriaSelect.innerHTML += `
+            <option value=${dato.id}>${dato.nombre}</option>
+          `;
+        }
+      })
+
+    }
   }
 
+  // Funcion "enviarDatos" debe estar fuera del hook debido a que es llamada desde el return
   const enviarDatos = (event) => {
     event.preventDefault() // Para que no se envie el formulario
-
+      
     let datos = {};
     datos.id = parseInt(id) // id obtenido desde la URL
     datos.nombre = event.target.nombre.value;
     datos.precio =  parseInt(event.target.precio.value);
     datos.id_categoria = parseInt(event.target.id_categoria.value);
-
+      
     let productoService = new ProductoService();
     productoService.saveProducto(datos).then(res => res.data);
-
+      
     alert('Datos del producto editados')
     router.push('/productos');
   }
@@ -40,14 +76,14 @@ export default function Home() {
   return (
      <div>
         <Head>
-          <title>Registrar Producto</title>
+          <title>Editar Producto { producto.nombre }</title>
         </Head>
 
         <Container>
-          <div class="container-fluid">
+          <main class="container-fluid">
             <div class="row">
 
-              <main class="col-12 p-2">
+              <div class="col-12 p-2">
                 <div class="alert alert-primary">
                   <center>
                     <h2>Editar producto</h2>
@@ -68,7 +104,7 @@ export default function Home() {
                       </div><br/>
 
                       <div class="col-md form-floating">
-                        <select class="form-select" name="id_categoria" required>
+                        <select class="form-select" name="id_categoria" id="categoriaSelect" required>
                             <option selected value="1">1</option>
                           </select>
                         <label for="floatingInput">Categorias</label>
@@ -80,16 +116,16 @@ export default function Home() {
                     </div>
                   </div>
                 </form>
-              </main>
+              </div>
 
               <div class="col-12 pb-3"><br/><br/><br/>
                 <Link href="/productos">
-                  <a class="btn btn-primary px-5">Regresar</a>
+                  <a class="btn btn-outline-primary px-5">Regresar</a>
                 </Link>
               </div>
 
             </div>
-          </div>
+          </main>
         </Container>
      </div>
   );

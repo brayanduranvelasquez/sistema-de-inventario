@@ -66,7 +66,7 @@ export default function Home() {
                                     Editar
                                   </a>
                                 </Link>
-                                <Link href={"/categorias/eliminar-categoria/" + dato.id}>
+                                <Link href={"/categorias/eliminar-categoria/" + dato.id + "?categoria=" + dato.nombre}>
                                   <a class="btn btn-sm btn-outline-danger">
                                     Eliminar
                                   </a>

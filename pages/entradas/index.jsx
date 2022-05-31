@@ -1,16 +1,16 @@
-import { CategoriaService } from "../service/CategoriaService.js";
-import Container from "../../components/container.jsx";
-import { useEffect, useState } from "react";
 import Head from "next/head";
-import Link from "next/link";
+import Link from 'next/link';
+import Container from "../../components/container.jsx";
+import { EntradaProductoService } from "../service/EntradaProductoService.js";
+import { useEffect, useState } from "react";
 
-export default function Home() {
-  const [categoria, setCategorias] = useState([]);
+export default function Index() {
+  const [entradaProducto, setEntradaProductos] = useState([]);
 
   useEffect(() => {
-    let categoriaService = new CategoriaService();
-    categoriaService
-      .getTodasCategorias()
+    let entradaProductoService = new EntradaProductoService();
+    entradaProductoService
+      .getTodasEntradaProducto()
       .then((res) => respuestaServidor(res))
       .catch(() => errorServidor());
 
@@ -21,7 +21,7 @@ export default function Home() {
       if (datos.length == 0) {
         divSinRegistros.style.cssText = "display: block";
       } else {
-        setCategorias(datos);
+        setEntradaProductos(datos);
         divRegistros.style.cssText = "display: block";
       }
     };
@@ -32,75 +32,62 @@ export default function Home() {
     };
   }, []);
 
+
   return (
     <div>
       <Head>
-        <title>Categorias</title>
+        <title>Entradas</title>
       </Head>
 
       <Container>
-        <main class="container-fluid">
+      <main class="container-fluid">
           <div class="row justify-content-center">
             <div class="col-12 pb-2 pt-3">
               <div class="alert alert-primary">
                 <center>
-                  <h2>Categorias</h2>
+                  <h2>Entradas Registradas</h2>
                 </center>
               </div>
             </div>
 
             <div
-              class="col-12 px-5 py-4"
+              class="col-12 py-5"
               style={{ display: "none" }}
               id="divRegistros"
             >
-              <div class="pb-2">
-                <Link href="/categorias/registrar-categoria">
-                  <a class="btn btn-primary btn-fluid">
-                    Registrar Categoria <i class="bi-plus-lg icon"></i>
-                  </a>
-                </Link>
-              </div>
-
               <table class="table table-hovered">
                 <thead>
                   <tr>
-                    <th>Id</th>
-                    <th>Nombre</th>
+                    <th>Nº</th>
+                    <th>Fecha</th>
+                    <th>Descripcion</th>
                     <th>Acciones</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {categoria.map((dato, index) => {
-                    return (
-                      <tr key={index}>
-                        <td>{dato.id}</td>
-                        <td>{dato.nombre}</td>
-                        <td>
-                          <div class="d-flex gap-2">
-                            <Link
-                              href={"/categorias/editar-categoria/" + dato.id}
-                            >
-                              <a class="btn btn-sm btn-outline-warning">
-                                Editar
-                              </a>
-                            </Link>
-                            <Link
-                              href={
-                                "/categorias/eliminar-categoria/" +
-                                dato.id +
-                                "?categoria=" +
-                                dato.nombre
-                              }
-                            >
-                              <a class="btn btn-sm btn-outline-danger">
-                                Eliminar
-                              </a>
-                            </Link>
-                          </div>
-                        </td>
-                      </tr>
-                    );
+                  {entradaProducto.map((dato, index) => {
+
+                    if (dato.status != 0) {
+                      return (
+                        <tr key={index}>
+                          <td>{index + 1}</td>
+                          <td>{dato.CreatedAt}</td>
+                          <td>{dato.descripcion}</td>
+                          <td>
+                            <div class="d-flex gap-2">
+                              <Link
+                                href={"/entradas/mostrar-entrada/" + dato.ID}
+                              >
+                                <a class="btn btn-sm btn-outline-warning">
+                                  Detalles
+                                </a>
+                              </Link>
+                            </div>
+                          </td>
+                        </tr>
+                      );
+                    }
+
                   })}
                 </tbody>
               </table>
@@ -115,11 +102,11 @@ export default function Home() {
                 <i class="bi-info-circle" style={{ fontSize: "60px" }}></i>
               </div>
               <center>
-                <h2>¡Actualmente no hay categorias registradas!</h2>
-                <p>Proceda a registrar una nueva categoria.</p>
-                <Link href="/categorias/registrar-categoria/">
+                <h2>¡Actualmente no hay entradas registradas!</h2>
+                <p>Cuando realice una entrada, se mostrará en este apartado.</p>
+                <Link href="/productos/registrar-producto/">
                   <a class="btn btn-primary">
-                    Registrar Categoria <i class="bi-plus-lg icon"></i>
+                    Registrar Producto <i class="bi-plus-lg icon"></i>
                   </a>
                 </Link>
               </center>

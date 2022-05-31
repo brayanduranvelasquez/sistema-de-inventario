@@ -65,12 +65,12 @@ export default function Home() {
               <table class="table table-hovered">
                 <thead>
                   <tr>
-                    <th>Id</th>
+                    <th>Nº</th>
                     <th>Nombre</th>
                     <th>Existencia</th>
                     <th>Precio</th>
                     <th>Categoria</th>
-                    <th>Status</th>
+                    <th>Entrada / Salida</th>
                     <th>Acciones</th>
                   </tr>
                 </thead>
@@ -78,12 +78,30 @@ export default function Home() {
                   {producto.map((dato, index) => {
                     return (
                       <tr key={index}>
-                        <td>{dato.id}</td>
+                        <td>{index + 1}</td>
                         <td>{dato.nombre}</td>
                         <td>{dato.existencia}</td>
                         <td>{dato.precio}</td>
                         <td>{dato.id_categoria}</td>
-                        <td>{dato.status ? "Inactivo" : "Activo"}</td>
+                        <td>
+                        <div class="d-flex gap-2">
+                            <Link
+                              href={"/entradas/registrar-entrada/" + dato.id}
+                            >
+                              <a class="btn btn-sm btn-outline-primary">
+                                Entrada
+                              </a>
+                            </Link>
+                            <Link
+                              href={
+                                "/salidas/registrar-salida/" + dato.id}
+                            >
+                              <a class="btn btn-sm btn-outline-primary">
+                                Salida
+                              </a>
+                            </Link>
+                          </div>
+                        </td>
                         <td>
                           <div class="d-flex gap-2">
                             <Link

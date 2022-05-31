@@ -63,6 +63,7 @@ export default function Home() {
     let datos = {};
     datos.id = parseInt(id) // id obtenido desde la URL
     datos.nombre = event.target.nombre.value;
+    datos.existencia = parseInt(producto.existencia);
     datos.precio =  parseInt(event.target.precio.value);
     datos.id_categoria = parseInt(event.target.id_categoria.value);
       
